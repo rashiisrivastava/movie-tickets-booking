@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movie Ticket Booking</title>
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f0f4f7, #cfd8dc);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 600px;
+      animation: slideIn 0.8s ease-out;
+    }
+    @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    /* Header */
+    h1 {
+      text-align: center;
+      color: #FF6347;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    h2 {
+      color: #4CAF50;
+      font-size: 1.8em;
+      margin-top: 30px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    
+    /* Form Elements */
+    label {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+      display: block;
+      color: #555;
+    }
+    select, input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    select:focus, input:focus {
+      border-color: #FF6347;
+      box-shadow: 0 0 5px rgba(255, 99, 71, 0.5);
+      outline: none;
+    }
+    
+    /* Button */
+    button {
+      background-color: #FF6347;
+      color: white;
+      font-size: 1.2em;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    button:hover {
+      background-color: #e5533d;
+      transform: scale(1.03);
+    }
+    
+    /* Booking List */
+    .booking-list {
+      margin-top: 30px;
+    }
+    .booking-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    .booking-list li {
+      background-color: #f9f9f9;
+      padding: 12px;
+      margin: 8px 0;
+      border-left: 5px solid #FF6347;
+      font-size: 1em;
+      border-radius: 5px;
+      opacity: 0;
+      animation: fadeIn 0.6s forwards;
+    }
+    .booking-list li:nth-child(even) {
+      background-color: #f1f1f1;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* Error Message */
+    .error {
+      color: #ff0000;
+      font-size: 1em;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎬 Movie Ticket Booking</h1>
+    
+    <label for="movie">Choose a Movie:</label>
+    <select id="movie">
+      <option value="Avengers">Avengers</option>
+      <option value="Inception">Inception</option>
+      <option value="Interstellar">Interstellar</option>
+    </select>
+    
+    <label for="name">Your Name:</label>
+    <input type="text" id="name" placeholder="Enter your name" />
+    
+    <label for="tickets">Number of Tickets:</label>
+    <input type="number" id="tickets" min="1" placeholder="Enter number of tickets" />
+    
+    <button onclick="bookTickets()">Book Now</button>
+    
+    <div class="error" id="error-message"></div>
+    
+    <div class="booking-list">
+      <h3>🎟 Booked Tickets:</h3>
+      <ul id="bookingList"></ul>
+    </div>
+  </div>
+  
+  <script>
+    function bookTickets() {
+      let name = document.getElementById('name').value;
+      let movie = document.getElementById('movie').value;
+      let tickets = document.getElementById('tickets').value;
+      let errorMessage = document.getElementById('error-message');
+      
+      // Clear any previous error messages
+      errorMessage.textContent = '';
+      
+      // Validation
+      if (!name || !tickets || tickets <= 0) {
+        errorMessage.textContent = "Please enter your name and a valid ticket count!";
+        return;
+      }
+      
+      let bookingList = document.getElementById('bookingList');
+      let newBooking = document.createElement('li');
+      newBooking.textContent = `${name} booked ${tickets} ticket(s) for ${movie}`;
+      bookingList.appendChild(newBooking);
+      
+      // Clear inputs after booking
+      document.getElementById('name').value = '';
+      document.getElementById('tickets').value = '';
+    }
+  </script>
+</body>
+</html>
